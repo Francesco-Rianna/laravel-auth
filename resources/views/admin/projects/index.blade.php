@@ -17,7 +17,8 @@
                 <td>{{$project->slug}}</td>
                 <td>{{$project->client_name}}</td>
                 <td>{{$project->summary}}</td>
-                <td><a href="">view</a></td>
+                <td><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">view</a></td>
+
             </tr>
         @endforeach
             

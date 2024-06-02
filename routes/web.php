@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 // Route::get('admin/dashboard', [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 Route::middleware(['auth', 'verified'])
-->name('admin')
+->name('admin.')
 ->prefix('admin')
 ->group (function(){
   Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
