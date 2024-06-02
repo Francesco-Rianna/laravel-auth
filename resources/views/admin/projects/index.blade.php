@@ -17,7 +17,14 @@
                 <td>{{$project->slug}}</td>
                 <td>{{$project->client_name}}</td>
                 <td>{{$project->summary}}</td>
-                <td><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">view</a></td>
+                <td class="text-center">
+                    <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">view</a>
+                    <form action="{{route('admin.projects.destroy', ['project' =>$project->id])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button  class="btn btn-danger mt-4" type="submit">elimina</button>
+                    </form>
+                </td>
 
             </tr>
         @endforeach

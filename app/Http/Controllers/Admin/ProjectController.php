@@ -49,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project= Project::find($id);
+        $project= Project::findOrFail($id);
 
         return view('admin.projects.show', compact('project') );
     }
@@ -85,6 +85,8 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project=Project::findOrFail($id);
+        $project->delete();
+        return redirect()->route('admin.projects.index');
     }
 }
