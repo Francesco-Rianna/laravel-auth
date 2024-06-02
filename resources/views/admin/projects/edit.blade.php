@@ -3,6 +3,15 @@
 @section('content')
 
 <h1 class="text-center"> Edit project</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 <form method="POST" action="{{ route('admin.projects.update', ['project' =>$project->id]) }}">
     @csrf
     @method('PUT')

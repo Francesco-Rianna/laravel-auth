@@ -37,7 +37,8 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
+         $validatedData = $this->validateProjectData($request);
         $newProject = new Project();
         $formData = $request->all();
         $newProject->fill($formData);
@@ -83,6 +84,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $this->validateProjectData($request);
         $project= Project::findOrFail($id);
         $formData = $request->all();
        
@@ -105,4 +107,21 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index');
     }
-}
+
+    private function validateProjectData(Request $request)
+    {
+        return $request->validate([
+            'name' => 'required|min:5|max:15',
+            'slug' => 'required|string',
+            'client_name' => 'required|string',
+            'summary' => 'nullable|string', 
+        ], [
+            'name.required'=> 'Il campo nome è obbligatorio.',
+            'name.min' => 'Il nome deve contenere almeno 5 caratteri.',
+            'name.max' => 'Il nome non può superare i 15 caratteri.',
+            'slug.required'=> 'Il campo slug è obbligatorio.',
+            'client_name.required'=> 'Il campo nome cliente è obbligatorio.',
+            'summary.string' => 'Il campo sommario deve essere una stringa.', 
+        ]);
+    }
+}    
