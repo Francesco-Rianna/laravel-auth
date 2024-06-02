@@ -6,6 +6,8 @@
       <h6 class="card-subtitle mb-2 text-body-secondary"> Nome del cliente : {{$project->client_name}}</h6>
       <p class="card-text"> Descrizione progetto : {{$project->summary}}</p>
       <div>{{$project->slug}}</div>
+
+      <a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">modifica</a>
     </div>
 </div>
 @endsection
