@@ -20,10 +20,6 @@
         <input type="text" class="form-control" id="name" name="name" value="{{$project->name}}">
     </div>
     <div class="form-group">
-        <label for="slug">Slug:</label>
-        <input type="text" class="form-control" id="slug" name="slug" value="{{$project->slug}}">
-    </div>
-    <div class="form-group">
         <label for="client_name">Client Name:</label>
         <input type="text" class="form-control" id="client_name" name="client_name" value="{{$project->client_name}}">
     </div>

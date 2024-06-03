@@ -20,10 +20,6 @@
         <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="form-group">
-        <label for="slug">Slug:</label>
-        <input type="text" class="form-control" id="slug" name="slug">
-    </div>
-    <div class="form-group">
         <label for="client_name">Client Name:</label>
         <input type="text" class="form-control" id="client_name" name="client_name">
     </div>

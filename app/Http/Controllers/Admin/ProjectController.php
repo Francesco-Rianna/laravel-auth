@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -41,6 +42,7 @@ class ProjectController extends Controller
          $validatedData = $this->validateProjectData($request);
         $newProject = new Project();
         $formData = $request->all();
+        $newProject->slug = Str::slug($formData['name'],'-');
         $newProject->fill($formData);
     
         
@@ -87,6 +89,7 @@ class ProjectController extends Controller
         $validatedData = $this->validateProjectData($request);
         $project= Project::findOrFail($id);
         $formData = $request->all();
+        $project->slug = Str::slug($formData['name'],'-');
        
     
         
@@ -112,14 +115,12 @@ class ProjectController extends Controller
     {
         return $request->validate([
             'name' => 'required|min:5|max:15',
-            'slug' => 'required|string',
             'client_name' => 'required|string',
             'summary' => 'nullable|string', 
         ], [
             'name.required'=> 'Il campo nome è obbligatorio.',
             'name.min' => 'Il nome deve contenere almeno 5 caratteri.',
             'name.max' => 'Il nome non può superare i 15 caratteri.',
-            'slug.required'=> 'Il campo slug è obbligatorio.',
             'client_name.required'=> 'Il campo nome cliente è obbligatorio.',
             'summary.string' => 'Il campo sommario deve essere una stringa.', 
         ]);
