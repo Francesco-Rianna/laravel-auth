@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -39,9 +40,14 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     { 
-         $validatedData = $this->validateProjectData($request);
-        $newProject = new Project();
         $formData = $request->all();
+        $validatedData = $this->validateProjectData($request);
+
+        if($request->hasFile('cover_image')) {
+            $img_path = Storage::disk('public')->put('projects_img',$formData['cover_image']);
+            $formData['cover_image'] =  $img_path;
+        };
+        $newProject = new Project();
         $newProject->slug = Str::slug($formData['name'],'-');
         $newProject->fill($formData);
     

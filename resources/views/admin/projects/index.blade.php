@@ -8,6 +8,8 @@
         <th scope="col">Slug</th>
         <th scope="col">Nome cliente</th>
         <th scope="col">Testo</th>
+        <th scope="col">immagine</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -17,6 +19,13 @@
                 <td>{{$project->slug}}</td>
                 <td>{{$project->client_name}}</td>
                 <td>{{$project->summary}}</td>
+                <td>
+                  @if ($project->cover_image)
+                    <div>
+                        <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->name }}" style="width : 100px">
+                    </div>
+                  @endif
+                </td>
                 <td class="text-center">
                     <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">view</a>
                     <form action="{{route('admin.projects.destroy', ['project' =>$project->id])}}" method="POST">

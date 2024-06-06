@@ -24,9 +24,9 @@
         <input type="text" class="form-control" id="client_name" name="client_name">
     </div>
     <div class="">
-        <label for="formFile" class="form-label">Default file input example</label>
-        <input class="form-control" type="file" id="formFile">
-      </div>
+        <label for="cover_image" class="form-label">Inserisci un immagine</label>
+        <input class="form-control" type="file" id="cover_image" name="cover_image">
+    </div>
     <div class="form-group">
         <label for="summary">Summary:</label>
         <textarea class="form-control" id="summary" name="summary" rows="4" ></textarea>
