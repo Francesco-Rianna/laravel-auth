@@ -93,14 +93,25 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $this->validateProjectData($request);
-        $project= Project::findOrFail($id);
+        $project = Project::findOrFail($id);
         $formData = $request->all();
-        $project->slug = Str::slug($formData['name'],'-');
-       
     
-        
+        if ($request->hasFile('cover_image')) {
+            // Rimuovi l'immagine vecchia se esiste
+            if ($project->cover_image) {
+                Storage::disk('public')->delete($project->cover_image);
+            }
+            // Carica la nuova immagine
+            $img_path = Storage::disk('public')->put('projects_img', $formData['cover_image']);
+            $formData['cover_image'] = $img_path;
+        }
+    
+        // Genera lo slug dal nome del progetto
+        $formData['slug'] = Str::slug($formData['name'], '-');
+    
+        // Aggiorna il progetto con i nuovi dati
         $project->update($formData);
-
+    
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
@@ -120,7 +131,7 @@ class ProjectController extends Controller
     private function validateProjectData(Request $request)
     {
         return $request->validate([
-            'name' => 'required|min:5|max:15',
+            'name' => 'required|min:5|max:250',
             'client_name' => 'required|string',
             'summary' => 'nullable|string', 
         ], [

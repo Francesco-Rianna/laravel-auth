@@ -12,7 +12,7 @@
         </ul>
     </div>
     @endif
-<form method="POST" action="{{ route('admin.projects.update', ['project' =>$project->id]) }}">
+<form method="POST" action="{{ route('admin.projects.update', ['project' =>$project->id]) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -22,6 +22,17 @@
     <div class="form-group">
         <label for="client_name">Client Name:</label>
         <input type="text" class="form-control" id="client_name" name="client_name" value="{{$project->client_name}}">
+    </div>
+    <div class="">
+        <label for="cover_image" class="form-label">Inserisci un immagine</label>
+        <input class="form-control" type="file" id="cover_image" name="cover_image">
+        @if ($project->cover_image)
+            <div>
+                <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->name }}" style="width : 100px">
+            </div>
+        @else
+           <strong>Immagine non presente</strong>
+        @endif
     </div>
     <div class="form-group">
         <label for="summary">Summary:</label>
